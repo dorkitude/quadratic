@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quadratic</title>
+    <meta
+      name="description"
+      content="Quadratic is a local-first utility for backing up your own Foursquare and Swarm check-in history."
+    >
+    <style>
+      :root {
+        --bg: #f3efe4;
+        --paper: rgba(255, 250, 240, 0.86);
+        --ink: #102a43;
+        --muted: #486581;
+        --accent: #cc5a2f;
+        --accent-2: #1f7a8c;
+        --border: rgba(16, 42, 67, 0.14);
+        --shadow: 0 24px 80px rgba(16, 42, 67, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(204, 90, 47, 0.20), transparent 28%),
+          radial-gradient(circle at right 20%, rgba(31, 122, 140, 0.18), transparent 24%),
+          linear-gradient(160deg, #f9f4e8 0%, #efe7d5 44%, #e8eef2 100%);
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1080px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 1rem 0 4rem;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 0;
+      }
+
+      .brand {
+        font-size: 1rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1rem;
+        color: var(--muted);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 2rem;
+        align-items: stretch;
+        margin-top: 2rem;
+      }
+
+      .panel {
+        background: var(--paper);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(10px);
+      }
+
+      .hero-copy {
+        padding: 3rem;
+      }
+
+      .eyebrow {
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 8vw, 6rem);
+        line-height: 0.94;
+        margin: 0 0 1.25rem;
+        font-weight: 600;
+      }
+
+      .lede {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--muted);
+        max-width: 38rem;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 0.85rem 1.3rem;
+        text-decoration: none;
+        border: 1px solid var(--border);
+        background: white;
+      }
+
+      .button.primary {
+        background: var(--ink);
+        color: #fff9ef;
+      }
+
+      .hero-card {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .card-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .mini-card {
+        padding: 1.1rem;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(16, 42, 67, 0.08);
+      }
+
+      .mini-card h2 {
+        margin: 0 0 0.6rem;
+        font-size: 1.05rem;
+      }
+
+      .mini-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .section {
+        margin-top: 2rem;
+        padding: 2rem;
+      }
+
+      .section h2 {
+        margin-top: 0;
+        font-size: 1.6rem;
+      }
+
+      .section p,
+      .section li {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      .footer {
+        margin-top: 2rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+        text-align: center;
+      }
+
+      @media (max-width: 840px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-copy,
+        .hero-card,
+        .section {
+          padding: 1.4rem;
+        }
+
+        h1 {
+          font-size: clamp(2.5rem, 16vw, 4rem);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <nav class="nav">
+        <div class="brand">Quadratic</div>
+        <div class="nav-links">
+          <a href="/privacy.html">Privacy</a>
+        </div>
+      </nav>
+
+      <main class="hero">
+        <section class="panel hero-copy">
+          <div class="eyebrow">Local-first personal backup</div>
+          <h1>Keep your own Foursquare check-ins.</h1>
+          <p class="lede">
+            Quadratic is a local command-line app for backing up your own
+            Foursquare and Swarm check-in history. It runs on your machine,
+            stores data on your machine, and exists to help you keep your own
+            archive.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="/privacy.html">Read privacy policy</a>
+            <a class="button" href="https://github.com/dorkitude/quadratic">Source repository</a>
+          </div>
+        </section>
+
+        <aside class="panel hero-card">
+          <div class="card-grid">
+            <section class="mini-card">
+              <h2>Direct to your device</h2>
+              <p>
+                The app authenticates the user and downloads backup data
+                directly to local storage.
+              </p>
+            </section>
+            <section class="mini-card">
+              <h2>No hosted data sink</h2>
+              <p>
+                This website does not receive or store check-in history. It
+                exists for product information and policy disclosure only.
+              </p>
+            </section>
+            <section class="mini-card">
+              <h2>Personal use</h2>
+              <p>
+                Quadratic is intended for users exporting and preserving their
+                own check-in history for personal backup purposes.
+              </p>
+            </section>
+          </div>
+        </aside>
+      </main>
+
+      <section class="panel section">
+        <h2>How it works</h2>
+        <ul>
+          <li>You authorize Quadratic with your Foursquare account.</li>
+          <li>The local app exchanges that authorization for an access token.</li>
+          <li>The local app downloads your check-in history to files on your computer.</li>
+          <li>You control the resulting backup and can remove it at any time.</li>
+        </ul>
+      </section>
+
+      <section class="panel section">
+        <h2>Run It On a Mac</h2>
+        <p>
+          Quadratic is a command-line app. To run it on macOS:
+        </p>
+        <ul>
+          <li>Install Go.</li>
+          <li>Clone <a href="https://github.com/dorkitude/quadratic">dorkitude/quadratic</a>.</li>
+          <li>Build it with <code>go build -o quadratic .</code>.</li>
+          <li>Run <code>./quadratic init</code>, then <code>./quadratic login</code>, <code>./quadratic sync</code>, and <code>./quadratic browse</code>.</li>
+        </ul>
+      </section>
+
+      <p class="footer">
+        Quadratic is a local utility for personal backups. This site is informational only.
+      </p>
+    </div>
+  </body>
+</html>

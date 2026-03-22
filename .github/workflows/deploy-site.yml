@@ -1,0 +1,36 @@
+name: Deploy Static Site
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "site/**"
+      - ".github/workflows/deploy-site.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Deploy site to Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: >
+          railway up site
+          --path-as-root
+          --project "${{ vars.RAILWAY_PROJECT_ID }}"
+          --environment "${{ vars.RAILWAY_ENVIRONMENT_NAME }}"
+          --service "${{ vars.RAILWAY_SERVICE_NAME }}"
+          --detach

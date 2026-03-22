@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quadratic Browser</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Quadratic Local Archive</div>
+          <h1>Your check-ins, browsable like a real timeline.</h1>
+          <p>
+            Filter by date, jump somewhere random, surface only check-ins with photos,
+            and inspect each visit in a layout that feels closer to Swarm than a dump of files.
+          </p>
+        </div>
+        <div class="hero-meta card">
+          <div id="meta-count" class="stat">Loading archive...</div>
+          <div id="meta-range" class="subtle"></div>
+          <div id="meta-path" class="tiny"></div>
+        </div>
+      </header>
+
+      <section class="filters card">
+        <label class="field field-search">
+          <span>Search</span>
+          <input id="search" type="search" placeholder="Venue, city, category, shout, people..." autocomplete="off">
+        </label>
+        <label class="field">
+          <span>From</span>
+          <input id="start-date" type="date">
+        </label>
+        <label class="field">
+          <span>To</span>
+          <input id="end-date" type="date">
+        </label>
+        <label class="checkbox-field">
+          <input id="has-photos" type="checkbox">
+          <span>Only show check-ins with pictures</span>
+        </label>
+        <div class="actions">
+          <button id="apply">Apply</button>
+          <button id="random" class="accent">Random Check-in</button>
+          <button id="refresh">Refresh</button>
+        </div>
+      </section>
+
+      <main class="layout">
+        <section class="list card">
+          <div class="list-header">
+            <div>
+              <strong id="results-label">Check-ins</strong>
+              <div id="results-subtitle" class="subtle"></div>
+            </div>
+            <div class="pager">
+              <button id="prev">Previous</button>
+              <span id="page-label"></span>
+              <button id="next">Next</button>
+            </div>
+          </div>
+          <div id="items" class="items"></div>
+        </section>
+
+        <section class="detail card">
+          <div id="detail-empty" class="detail-empty">Select a check-in to inspect it.</div>
+          <article id="detail-view" class="detail-view hidden">
+            <div id="detail-hero" class="detail-hero"></div>
+            <div class="detail-body">
+              <div class="detail-main">
+                <div class="detail-headline">
+                  <div class="detail-date-row">
+                    <span id="detail-date" class="detail-date"></span>
+                    <span id="detail-category" class="detail-chip"></span>
+                  </div>
+                  <h2 id="detail-venue"></h2>
+                  <p id="detail-location" class="detail-location"></p>
+                  <p id="detail-shout" class="detail-shout hidden"></p>
+                </div>
+
+                <div id="detail-companions" class="detail-companions hidden"></div>
+
+                <div class="detail-section">
+                  <div class="section-head">
+                    <h3>Photos</h3>
+                    <span id="photo-count" class="subtle"></span>
+                  </div>
+                  <div id="detail-photos" class="detail-photos"></div>
+                </div>
+              </div>
+
+              <aside class="detail-sidebar">
+                <div class="sidebar-card">
+                  <h3>Check-in Info</h3>
+                  <dl id="detail-facts" class="facts"></dl>
+                </div>
+                <div class="sidebar-card">
+                  <button id="view-source" class="accent wide">View Source</button>
+                </div>
+              </aside>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="source-modal" class="source-modal">
+      <div class="modal-head">
+        <h3>Raw Check-in JSON</h3>
+        <button id="close-source">Close</button>
+      </div>
+      <pre id="detail-json" class="detail-json"></pre>
+    </dialog>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

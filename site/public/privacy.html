@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quadratic Privacy Policy</title>
+    <style>
+      :root {
+        --bg: #f5f1e8;
+        --paper: #fffaf0;
+        --ink: #143642;
+        --muted: #47606b;
+        --accent: #b8502d;
+        --border: rgba(20, 54, 66, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        color: var(--ink);
+        background:
+          linear-gradient(160deg, rgba(184, 80, 45, 0.09), transparent 36%),
+          linear-gradient(340deg, rgba(22, 99, 122, 0.09), transparent 40%),
+          var(--bg);
+      }
+
+      .shell {
+        width: min(860px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      .card {
+        background: rgba(255, 250, 240, 0.88);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        padding: 2rem;
+      }
+
+      h1 {
+        margin-top: 0;
+        font-size: clamp(2.3rem, 8vw, 4rem);
+      }
+
+      h2 {
+        margin-top: 2rem;
+        font-size: 1.2rem;
+      }
+
+      p, li {
+        line-height: 1.75;
+        color: var(--muted);
+      }
+
+      a {
+        color: var(--accent);
+      }
+
+      .meta {
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.8rem;
+      }
+
+      ul {
+        padding-left: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="card">
+        <div class="meta">Quadratic Privacy Policy</div>
+        <h1>Privacy Policy</h1>
+        <p>Effective date: March 22, 2026</p>
+        <p>
+          Quadratic is a local-first tool for backing up a user's own
+          Foursquare and Swarm check-in data.
+        </p>
+
+        <h2>What Quadratic does</h2>
+        <p>
+          Quadratic runs locally on the user's device. After the user authorizes
+          the application with Foursquare, the local app downloads check-in data
+          directly to the user's machine for personal backup purposes.
+        </p>
+
+        <h2>What data we collect</h2>
+        <p>
+          We do not collect, receive, host, or store your check-in history on
+          our servers through this website.
+        </p>
+        <p>
+          The website associated with Quadratic exists only to provide basic
+          product information and this privacy policy.
+        </p>
+
+        <h2>How data is handled</h2>
+        <ul>
+          <li>Your Foursquare check-in data is downloaded by the local app to your device.</li>
+          <li>Your backup files are stored locally under paths you control.</li>
+          <li>We do not sell, share, inspect, analyze, or monetize your check-in history.</li>
+        </ul>
+
+        <h2>OAuth authorization</h2>
+        <p>
+          Quadratic uses Foursquare's OAuth flow so that a user can authorize
+          access to their own account data. That authorization is used by the
+          local app to request the user's own data from Foursquare.
+        </p>
+
+        <h2>Data deletion</h2>
+        <p>
+          Because backup data is stored locally by the user, deletion is under
+          the user's control. Users may delete the local backup files at any
+          time and may revoke the application's access through their Foursquare
+          account settings.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          For questions about this policy, contact the operator of this app
+          through the project repository at
+          <a href="https://github.com/dorkitude/quadratic">github.com/dorkitude/quadratic</a>.
+        </p>
+
+        <p><a href="/">Back to home</a></p>
+      </div>
+    </div>
+  </body>
+</html>
