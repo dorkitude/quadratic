@@ -12,6 +12,7 @@ The app:
 ## Repository
 
 - GitHub: `https://github.com/dorkitude/quadratic`
+- Railway static site: link the Railway service directly to this repo and set the root directory to `site/`
 
 ## macOS quick start
 
@@ -123,4 +124,5 @@ Files:
 
 - The app is local-first. Your check-in archive stays on your machine.
 - The website in `site/` exists to provide a project URL and privacy policy for OAuth app setup.
+- The intended deploy path for `site/` is Railway's native GitHub integration, watching this repo on `main`.
 - The repo intentionally ignores the compiled binary and any local SQLite files.
