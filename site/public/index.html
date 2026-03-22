@@ -53,6 +53,23 @@
         padding: 1rem 0;
       }
 
+      .fork-ribbon {
+        position: fixed;
+        top: 18px;
+        right: -48px;
+        transform: rotate(38deg);
+        background: var(--ink);
+        color: #fff8ef;
+        text-decoration: none;
+        padding: 0.8rem 3.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 14px 34px rgba(16, 42, 67, 0.24);
+        z-index: 20;
+        font-size: 0.88rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
       .brand {
         font-size: 1rem;
         letter-spacing: 0.2em;
@@ -206,6 +223,7 @@
     </style>
   </head>
   <body>
+    <a class="fork-ribbon" href="https://github.com/dorkitude/quadratic">Fork me on GitHub</a>
     <div class="shell">
       <nav class="nav">
         <div class="brand">Quadratic</div>
