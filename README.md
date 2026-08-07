@@ -15,20 +15,22 @@ The app:
 
 ## macOS quick start
 
-### 1. Clone the repo
+### 1. Install
+
+```bash
+brew tap dorkitude/tap
+brew install quadratic
+```
+
+To build the current development version instead:
 
 ```bash
 git clone https://github.com/dorkitude/quadratic.git
 cd quadratic
-```
-
-### 2. Build the binary
-
-```bash
 go build -o quadratic .
 ```
 
-### 3. Create your config interactively
+### 2. Create your config interactively
 
 ```bash
 ./quadratic init
@@ -47,7 +49,7 @@ Recommended redirect URL:
 http://127.0.0.1:8765/callback
 ```
 
-### 4. Log in with Foursquare
+### 3. Log in with Foursquare
 
 ```bash
 ./quadratic login
@@ -55,7 +57,7 @@ http://127.0.0.1:8765/callback
 
 This opens the browser, completes OAuth locally, and saves your access token in your user config.
 
-### 5. Sync your check-ins
+### 4. Sync your check-ins
 
 ```bash
 ./quadratic sync
@@ -66,7 +68,7 @@ This writes:
 - raw JSON backups under `~/.quadratic/data/checkins/`
 - a SQLite archive at `~/.quadratic/data/archive.sqlite`
 
-### 6. Browse the archive locally
+### 5. Browse the archive locally
 
 ```bash
 ./quadratic browse

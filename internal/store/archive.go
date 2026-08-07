@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"sort"
 	"strings"
 	"time"
 
@@ -51,6 +50,7 @@ func (s *Store) initArchiveSchema() error {
 		)`,
 		`CREATE INDEX IF NOT EXISTS idx_checkins_created_at ON checkins(created_at DESC, id DESC)`,
 		`CREATE INDEX IF NOT EXISTS idx_checkins_has_photos_created_at ON checkins(has_photos, created_at DESC)`,
+		`CREATE INDEX IF NOT EXISTS idx_checkins_source_file_mtime ON checkins(source_file, source_mtime_ns)`,
 	}
 	for _, stmt := range schema {
 		if _, err := s.db.Exec(stmt); err != nil {
@@ -100,8 +100,17 @@ func (s *Store) importJSONBackups(ctx context.Context) error {
 	}
 	defer upsert.Close()
 
-	seenIDs := make([]string, 0, len(entries))
-	now := time.Now().Unix()
+	markUnchanged, err := tx.PrepareContext(ctx, `UPDATE checkins
+		SET imported_at = ?
+		WHERE source_file = ? AND source_mtime_ns = ?`)
+	if err != nil {
+		return fmt.Errorf("prepare unchanged archive marker: %w", err)
+	}
+	defer markUnchanged.Close()
+
+	// A marker lets cleanup identify rows that were not represented by a JSON
+	// file in this import. It avoids building one SQL parameter per check-in.
+	importedAt := time.Now().UnixNano()
 
 	for _, entry := range entries {
 		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".json") {
@@ -117,6 +126,15 @@ func (s *Store) importJSONBackups(ctx context.Context) error {
 		info, err := entry.Info()
 		if err != nil {
 			return fmt.Errorf("stat checkin file %s: %w", entry.Name(), err)
+		}
+		marked, err := markUnchanged.ExecContext(ctx, importedAt, path, info.ModTime().UnixNano())
+		if err != nil {
+			return fmt.Errorf("mark unchanged checkin file %s: %w", entry.Name(), err)
+		}
+		if rows, err := marked.RowsAffected(); err != nil {
+			return fmt.Errorf("count unchanged checkin file %s: %w", entry.Name(), err)
+		} else if rows > 0 {
+			continue
 		}
 
 		rawJSON, payload, err := parseCheckinFile(path)
@@ -152,38 +170,18 @@ func (s *Store) importJSONBackups(ctx context.Context) error {
 			string(rawJSON),
 			path,
 			info.ModTime().UnixNano(),
-			now,
+			importedAt,
 		); err != nil {
 			return fmt.Errorf("upsert checkin %s: %w", payload.ID, err)
 		}
 
-		seenIDs = append(seenIDs, payload.ID)
 	}
 
-	if err := deleteMissingRows(ctx, tx, seenIDs); err != nil {
-		return err
+	if _, err := tx.ExecContext(ctx, `DELETE FROM checkins WHERE imported_at <> ?`, importedAt); err != nil {
+		return fmt.Errorf("delete missing checkins: %w", err)
 	}
 	if err := tx.Commit(); err != nil {
 		return fmt.Errorf("commit archive import: %w", err)
-	}
-	return nil
-}
-
-func deleteMissingRows(ctx context.Context, tx *sql.Tx, ids []string) error {
-	if len(ids) == 0 {
-		_, err := tx.ExecContext(ctx, `DELETE FROM checkins`)
-		return err
-	}
-	sort.Strings(ids)
-	placeholders := make([]string, 0, len(ids))
-	args := make([]any, 0, len(ids))
-	for _, id := range ids {
-		placeholders = append(placeholders, "?")
-		args = append(args, id)
-	}
-	query := `DELETE FROM checkins WHERE id NOT IN (` + strings.Join(placeholders, ",") + `)`
-	if _, err := tx.ExecContext(ctx, query, args...); err != nil {
-		return fmt.Errorf("delete missing checkins: %w", err)
 	}
 	return nil
 }

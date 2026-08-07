@@ -9,9 +9,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// version is set at release build time with -ldflags.
+var version = "dev"
+
 var rootCmd = &cobra.Command{
 	Use:           "quadratic",
 	Short:         "Back up Foursquare check-ins locally",
+	Version:       version,
 	SilenceUsage:  true,
 	SilenceErrors: true,
 }
