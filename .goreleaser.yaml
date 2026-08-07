@@ -34,4 +34,4 @@ release:
 
     ---
 
-    Install with Homebrew: `brew tap dorkitude/tap && brew install quadratic`
+    Install with Homebrew: `brew tap dorkitude/quadratic && brew install quadratic`

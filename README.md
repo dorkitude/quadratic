@@ -18,7 +18,7 @@ The app:
 ### 1. Install
 
 ```bash
-brew tap dorkitude/tap
+brew tap dorkitude/quadratic
 brew install quadratic
 ```
 
